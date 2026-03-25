@@ -1,0 +1,495 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  /* ─── Light mode (default) ─── */
+  :root {
+    --radius: 0.875rem;
+
+    /* Crisp white backgrounds */
+    --background: 0.99 0.003 258;
+    --foreground: 0.15 0.035 258;
+    --card: 1 0 0;
+    --card-foreground: 0.15 0.035 258;
+    --popover: 1 0 0;
+    --popover-foreground: 0.15 0.035 258;
+
+    /* Vibrant indigo primary */
+    --primary: 0.58 0.22 264;
+    --primary-foreground: 0.985 0 0;
+
+    /* Cool gray secondary */
+    --secondary: 0.93 0.008 258;
+    --secondary-foreground: 0.22 0.045 258;
+
+    --muted: 0.93 0.008 258;
+    --muted-foreground: 0.5 0.025 258;
+
+    /* Soft violet accent */
+    --accent: 0.94 0.018 264;
+    --accent-foreground: 0.22 0.045 258;
+
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.9 0.012 258;
+    --input: 0.9 0.012 258;
+    --ring: 0.58 0.22 264;
+
+    --chart-1: 0.58 0.22 264;
+    --chart-2: 0.6 0.15 162;
+    --chart-3: 0.7 0.16 70;
+    --chart-4: 0.63 0.22 303;
+    --chart-5: 0.6 0.2 16;
+
+    --sidebar: 0.98 0.005 258;
+    --sidebar-foreground: 0.15 0.035 258;
+    --sidebar-primary: 0.58 0.22 264;
+    --sidebar-primary-foreground: 0.985 0 0;
+    --sidebar-accent: 0.93 0.008 258;
+    --sidebar-accent-foreground: 0.22 0.045 258;
+    --sidebar-border: 0.9 0.012 258;
+    --sidebar-ring: 0.58 0.22 264;
+  }
+
+  /* ─── Dark mode ─── */
+  .dark {
+    --background: 0.118 0.028 258;
+    --foreground: 0.925 0.012 258;
+    --card: 0.155 0.038 256;
+    --card-foreground: 0.925 0.012 258;
+    --popover: 0.175 0.042 256;
+    --popover-foreground: 0.925 0.012 258;
+
+    --primary: 0.68 0.2 264;
+    --primary-foreground: 0.985 0 0;
+
+    --secondary: 0.22 0.045 258;
+    --secondary-foreground: 0.85 0.015 258;
+
+    --muted: 0.22 0.038 258;
+    --muted-foreground: 0.62 0.025 252;
+
+    --accent: 0.25 0.065 264;
+    --accent-foreground: 0.925 0.012 258;
+
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.28 0.05 258;
+    --input: 0.28 0.05 258;
+    --ring: 0.68 0.2 264;
+
+    --chart-1: 0.68 0.2 264;
+    --chart-2: 0.696 0.17 162;
+    --chart-3: 0.769 0.188 70;
+    --chart-4: 0.627 0.265 303;
+    --chart-5: 0.645 0.246 16;
+
+    --sidebar: 0.15 0.035 258;
+    --sidebar-foreground: 0.925 0.012 258;
+    --sidebar-primary: 0.68 0.2 264;
+    --sidebar-primary-foreground: 0.985 0 0;
+    --sidebar-accent: 0.22 0.045 258;
+    --sidebar-accent-foreground: 0.85 0.015 258;
+    --sidebar-border: 0.28 0.05 258;
+    --sidebar-ring: 0.68 0.2 264;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  /* ── Orb floating background ── */
+  .orb {
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    animation: float 8s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  .orb-sm {
+    filter: blur(50px);
+    opacity: 0.25;
+    animation: float 6s ease-in-out infinite alternate;
+    animation-delay: -3s;
+    pointer-events: none;
+  }
+
+  @keyframes float {
+    from {
+      transform: translateY(0) scale(1);
+    }
+    to {
+      transform: translateY(-30px) scale(1.05);
+    }
+  }
+
+  /* ── 3D card tilt base ── */
+  .tilt-card {
+    transform-style: preserve-3d;
+    transition: transform 0.08s linear, box-shadow 0.3s ease;
+    will-change: transform;
+  }
+
+  /* ── White 3D card ── */
+  .card-3d {
+    background: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px
+      rgba(99, 102, 241, 0.08), 0 20px 60px rgba(99, 102, 241, 0.06);
+    transition: box-shadow 0.3s ease, transform 0.3s
+      cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(99, 102, 241, 0.08);
+  }
+
+  .card-3d:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 8px 32px
+      rgba(99, 102, 241, 0.14), 0 32px 80px rgba(99, 102, 241, 0.12);
+    transform: translateY(-6px);
+  }
+
+  .dark .card-3d {
+    background: oklch(0.155 0.038 256);
+    border-color: oklch(0.28 0.05 258 / 0.5);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.2), 0
+      20px 60px rgba(0, 0, 0, 0.25);
+  }
+
+  .dark .card-3d:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.3), 0
+      32px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  /* ── Glass navbar ── */
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.12);
+    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.06), 0 1px 2px
+      rgba(0, 0, 0, 0.04);
+  }
+
+  .dark .glass-nav {
+    background: rgba(15, 23, 42, 0.85);
+    border-color: oklch(0.28 0.05 258 / 0.4);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ── Glass pill (legacy support) ── */
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+  }
+
+  .dark .glass-pill {
+    background: oklch(0.155 0.038 256 / 0.85);
+    border-color: oklch(0.28 0.05 258 / 0.4);
+  }
+
+  /* ── Skill tile light ── */
+  .skill-tile {
+    background: #ffffff;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.06);
+    transition: box-shadow 0.25s ease, transform 0.25s
+      cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  }
+
+  .skill-tile:hover {
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.12);
+    transform: scale(1.02);
+  }
+
+  .dark .skill-tile {
+    background: oklch(0.18 0.045 260 / 0.9);
+    border-color: oklch(0.28 0.05 258 / 0.5);
+    box-shadow: none;
+  }
+
+  .dark .skill-tile:hover {
+    border-color: oklch(0.606 0.222 264 / 0.3);
+    transform: scale(1.02);
+  }
+
+  /* ── Section with dot mesh ── */
+  .section-mesh {
+    background-image: radial-gradient(
+      circle,
+      oklch(0.7 0.1 264 / 0.15) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+  }
+
+  .dark .section-mesh {
+    background-image: radial-gradient(
+      circle,
+      oklch(0.606 0.222 264 / 0.08) 1px,
+      transparent 1px
+    );
+  }
+
+  /* ── Tinted section background ── */
+  .section-tint {
+    background-color: oklch(0.975 0.008 264);
+  }
+
+  .dark .section-tint {
+    background-color: oklch(0.13 0.03 258);
+  }
+
+  /* ── Gradient text ── */
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      oklch(0.58 0.22 264) 0%,
+      oklch(0.72 0.18 295) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .dark .gradient-text {
+    background: linear-gradient(
+      135deg,
+      oklch(0.78 0.18 264) 0%,
+      oklch(0.82 0.15 295) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Glow button ── */
+  .btn-glow {
+    box-shadow: 0 4px 20px oklch(0.58 0.22 264 / 0.35);
+    transition: box-shadow 0.25s ease, transform 0.2s ease;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 6px 32px oklch(0.58 0.22 264 / 0.55);
+    transform: translateY(-1px);
+  }
+
+  .dark .btn-glow {
+    box-shadow: 0 4px 20px oklch(0.68 0.2 264 / 0.4);
+  }
+
+  .dark .btn-glow:hover {
+    box-shadow: 0 6px 32px oklch(0.68 0.2 264 / 0.6);
+  }
+
+  /* ── Card gradient border ── */
+  .card-border-gradient {
+    position: relative;
+  }
+
+  .card-border-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      oklch(0.58 0.22 264 / 0.3),
+      oklch(0.72 0.18 295 / 0.15)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ── Reveal on scroll ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s
+      cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Card hover lift (legacy) ── */
+  .card-hover {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s
+      ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+  }
+
+  /* ── Hero 3D photo frame ── */
+  .hero-photo-3d {
+    transform: perspective(800px) rotateY(-8deg) rotateX(3deg);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hero-photo-3d:hover {
+    transform: perspective(800px) rotateY(-4deg) rotateX(1deg);
+  }
+
+  /* ── Project card accent stripe ── */
+  .project-stripe-crm {
+    background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+  }
+  .project-stripe-web {
+    background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+  }
+  .project-stripe-landing {
+    background: linear-gradient(90deg, #f97316 0%, #fb923c 100%);
+  }
+  .project-stripe-dashboard {
+    background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+  }
+
+  /* ── Project thumbnails ── */
+  .thumb-crm {
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 50%, #c7d2fe 100%);
+  }
+  .dark .thumb-crm {
+    background: linear-gradient(135deg, #1e1f5e 0%, #312e81 50%, #4f46e5 100%);
+  }
+  .thumb-realestate {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #a7f3d0 100%);
+  }
+  .dark .thumb-realestate {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #059669 100%);
+  }
+  .thumb-landing {
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #fed7aa 100%);
+  }
+  .dark .thumb-landing {
+    background: linear-gradient(135deg, #7c2d12 0%, #9a3412 50%, #ea580c 100%);
+  }
+  .thumb-dashboard {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #bfdbfe 100%);
+  }
+  .dark .thumb-dashboard {
+    background: linear-gradient(135deg, #1e3a5f 0%, #1e40af 50%, #3b82f6 100%);
+  }
+
+  /* ── Stagger children ── */
+  .stagger > *:nth-child(1) {
+    transition-delay: 0ms;
+  }
+  .stagger > *:nth-child(2) {
+    transition-delay: 80ms;
+  }
+  .stagger > *:nth-child(3) {
+    transition-delay: 160ms;
+  }
+  .stagger > *:nth-child(4) {
+    transition-delay: 240ms;
+  }
+  .stagger > *:nth-child(5) {
+    transition-delay: 320ms;
+  }
+  .stagger > *:nth-child(6) {
+    transition-delay: 400ms;
+  }
+
+  /* ── Mobile menu ── */
+  .mobile-menu-enter {
+    animation: mobileMenuIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes mobileMenuIn {
+    from {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ── Glow effects ── */
+  .glow-hero {
+    background: radial-gradient(
+      ellipse 80% 60% at 60% 30%,
+      oklch(0.58 0.22 264 / 0.06) 0%,
+      transparent 65%
+    );
+  }
+
+  .dark .glow-hero {
+    background: radial-gradient(
+      ellipse 80% 60% at 60% 30%,
+      oklch(0.606 0.222 264 / 0.1) 0%,
+      transparent 65%
+    );
+  }
+
+  .glow-indigo {
+    background: radial-gradient(
+      ellipse 60% 40% at 50% 0%,
+      oklch(0.58 0.22 264 / 0.07) 0%,
+      transparent 70%
+    );
+  }
+
+  .dark .glow-indigo {
+    background: radial-gradient(
+      ellipse 60% 40% at 50% 0%,
+      oklch(0.606 0.222 264 / 0.12) 0%,
+      transparent 70%
+    );
+  }
+}
